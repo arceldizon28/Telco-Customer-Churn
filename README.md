@@ -29,7 +29,8 @@ There were significantly less churning customers compared to customers staying. 
 2. Decision Tree Algorithm
 3. Random Forest Algorithm
 
-![image](https://github.com/arceldizon28/Telco-Customer-Churn/assets/148745972/d66918c5-3638-43e2-b1d9-e3faa8e0ee82)  
+![image](https://github.com/arceldizon28/Telco-Customer-Churn/assets/148745972/ca029232-8574-47f9-92ff-90f595e6aef7)
+  
 Logistic Regression Predictive Model performed the best at 74% accuracy. Random Forest algorithm coming in at 72%, and Decision Tree at only 69%.
 
 ### Variables significant to Churn

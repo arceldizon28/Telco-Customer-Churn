@@ -94,11 +94,29 @@ IsMale had a very low correlation but had high variance on its values. This mean
 3. Lasso penalized
 
 all three performed quite the same and gave accuracy scores of ~74-75% out of the three approaches, but the lasso penalized logistic regression model was more successful in feature reduction than the correlation and variance elimination approach. The lasso regression alpha value is 0.01. Below are the final variables and their respective coefficients.
-- tenure: -1.443792
-- HasInternetService: 0.299170
-- HasPaperlessBilling: 0.127208
-- Fiber_optic_Internet: 0.850658
-- One_year_Contract: -0.209732
-- Two_year_Contract: -0.755946
-- Electronic_check_PaymentMethod: 0.414212
-- intercept: -0.26725848
+- tenure: -1.443
+- HasInternetService: 0.299
+- HasPaperlessBilling: 0.127
+- Fiber_optic_Internet: 0.850
+- One_year_Contract: -0.209
+- Two_year_Contract: -0.755
+- Electronic_check_PaymentMethod: 0.414
+- intercept: -0.267
+
+### Interpretation
+Using the lasso penalized logistic regression was the most successful way done to create a predictive model that could aid in estimating a customer's probability to churn. The variables remained from the penalized predictive model are:
+1. Tenureship: the longer a customer has been using the services of the telco company, the lesser the probability to churn. Those customers most likely enjoy the current promo, discounts, or offers that they opted for, if any, and see the services as perfect for their use case.
+2. Having Internet Service: customers who availed for the internet service in general has a slight increase in probability to churn.
+3. Paperless Billing: contributes a little to the increase in churn probability
+4. Fiber Optic Internet: is a significant factor that increases the probability to churn. The disadvantages of using a fiber optic internet may have outweighed the benefits of it. Fiber optic internet costs more and is prone to physical damage. This combination of problem may lead to customers not seeing the worth of the incredible speed because of the cost. It could also be seen in the correlation matrix that fiber optic internet is positively correlated to monthly charges, which is also slightly positively correlated to the churn.
+5. One year contract: customers who commit to longer contracts could mean that they are willing to use the telco's services for a longer time hence can be attributed to lower probability to churn
+6. Two year contract: similar to one year contract but has a higher influencing power
+7. Electronic check payment method: there is a slight increase in churn probability for customers who opt for electronic check payment method. This could be due to inefficiencies in the payment method in the software's design, bank's processes, insufficient knowledge in doing electric payment or any other reason that cannot be inferred from the data alone. There aren't any clear insights I could extract from this variable because it is not correlated to all of variables in the dataset
+
+### Recommendations
+1. Tenure is slightly correlated to a mix of variables including: partner status, mailed check, online security and backup, device protection, and tech support. These quality-of-life improvements help the customers retain their loyalty to the telco. A maintained high quality of those mentioned can indirectly contribute to increase in tenure which leads to lower churn rate.
+2. Longer contracts helps reduce a customer's probability to churn. Offering long contracts with a better deal may help increase the amount of customers who opt for a longer contract
+3. Fiber optic internet seems to cause an increase in churn probability due to cost. It is highly correlated to monthly charges but not to total charges. Implementing discounts to fiber optic internet may make customers consider continuing using the service.
+4. Explore and gather more data about the experiences of customers when using electronic payment method. It is one of the factors with high correlation but I cannot seem to find the reason.
+
+

@@ -1,6 +1,8 @@
 # Telco-Customer-Churn
 Telco Customer Churn Analysis and Prediction
-In this personal project I analyzed a Telco Customer Churn dataset from Kaggle. I also quickly made three predictive models that could give predictions whether a customer might churn depending on their current condition, based on the follow variables:
+In this personal project I analyzed a Telco Customer Churn dataset from Kaggle [datasets/blastchar/telco-customer-churn]. 
+## First approach in predictive modeling
+I made three quick initial predictive models that could give predictions whether a customer might churn depending on their current condition, based on the follow variables:
 - gender
 - is a senior citizen
 - has partner
@@ -21,9 +23,6 @@ In this personal project I analyzed a Telco Customer Churn dataset from Kaggle. 
 - monthly charges
 - total charges  
 
-### Class imbalance problem
-There were significantly less churning customers compared to customers staying. To create the predictive models, I undersamples the majority class and left some based on the amount of the minority class.
-
 ### Predictive Models created
 1. Logistic Regression
 2. Decision Tree Algorithm
@@ -34,7 +33,7 @@ There were significantly less churning customers compared to customers staying. 
 Logistic Regression Predictive Model performed the best at 74% accuracy. Random Forest algorithm coming in at 72%, and Decision Tree at only 69%.
 
 ### Variables significant to Churn
-Since the variables are categorical, I implemented chi square test. Below are the categorical variables in decreasing order of significance to Churn:
+I did chi square test on the categorical variables. Below are the categorical variables in decreasing order of significance to Churn:
 1. contract
 2. online security
 3. tech support
@@ -63,5 +62,43 @@ I would interpret the top 10 most significant variables from the analysis as the
 ![image](https://github.com/arceldizon28/Telco-Customer-Churn/assets/148745972/5daf9e3d-3395-4ab4-925e-dbbe6be06f09)
 ![image](https://github.com/arceldizon28/Telco-Customer-Churn/assets/148745972/90c833e0-51b1-4c16-b33c-eccc7b41b826)
 
+## Second approach to predictive modeling
+For the second approach, I performed further data cleaning and transformation. I implemented one-hot encoding on the categorical variables and did min-max feature scaling normalization on the numerical variables. I also checked for mutlicollinearity where I discovered the following pairs with high correlation.
+- tenure & total charges
+- monthly charges & has internet service
+- monthly charges & fiber optic internet
+- monthly charges & total charges
+- monthly charges & has streaming tv & has streaming movies
+- fiber optic internet & dsl internet  
+I also measured the correlation of each predictor variable to the target variable churn:
+- tenure @ -0.35
+- electronic check payment method @ 0.3
+- two year contract @ -0.3
+- fiber optic internet @ 0.3
+- has internet service @ 0.23
 
+Despite the low correlation, it does not mean these do not have an effect, but that the effect is either weak or their relation to the churn is not linear which correlation analysis cannot detect.
+There are other ways to discover the importance of predictor variables to the target variable churn, such as looking at the variance. Below are the top 3 and bottom 3 variables in variance.
+- IsMale
+- HasPartner
+- Fiber_optic_Internet
+- MonthlyCharges
+- HasPhoneService
+- TotalCharges
 
+IsMale had a very low correlation but had high variance on its values. This means that despite the low predictive power, it can cover a wider range of data compared to tenure having high correlation but low variance. There seems to be a tradeoff between correlation and variance in the data.
+
+### logistice regression models created
+1. standard
+2. standard (dropped variables with multicollinearity: monthly charges, total charges, has phone service) 
+3. Lasso penalized
+
+all three performed quite the same and gave accuracy scores of ~74-75% out of the three approaches, but the lasso penalized logistic regression model was more successful in feature reduction than the correlation and variance elimination approach. The lasso regression alpha value is 0.01. Below are the final variables and their respective coefficients.
+- tenure: -1.443792
+- HasInternetService: 0.299170
+- HasPaperlessBilling: 0.127208
+- Fiber_optic_Internet: 0.850658
+- One_year_Contract: -0.209732
+- Two_year_Contract: -0.755946
+- Electronic_check_PaymentMethod: 0.414212
+- intercept: -0.26725848
